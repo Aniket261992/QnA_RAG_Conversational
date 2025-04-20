@@ -52,3 +52,4 @@ langserve[all]
 uvicorn
 sse_starlette
 langchain_core
+codecarbon
