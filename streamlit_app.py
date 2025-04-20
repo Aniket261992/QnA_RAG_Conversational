@@ -1,7 +1,7 @@
 import streamlit as st
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
-from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
@@ -79,7 +79,7 @@ if(st.session_state.get("key_valid")):
         st.session_state.load_vectordb = True
         splitter = RecursiveCharacterTextSplitter(chunk_size = 5000, chunk_overlap=500)
         splitted_doc = splitter.split_documents(st.session_state.document)
-        vectordb =  Chroma.from_documents(splitted_doc,hf_embedding)
+        vectordb =  FAISS.from_documents(splitted_doc,hf_embedding)
         st.session_state.vectordb = vectordb
         st.session_state.load_retriever = False
         if st.session_state.model_name in model_openai:
@@ -157,6 +157,3 @@ if(st.session_state.get("key_valid")):
                 st.write(response['answer'])
     else:
         st.error("API Key and Chosen Model dont match!")
-
-
-
