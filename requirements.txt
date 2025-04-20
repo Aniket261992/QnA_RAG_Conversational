@@ -53,3 +53,4 @@ uvicorn
 sse_starlette
 langchain_core
 codecarbon
+tf-keras
